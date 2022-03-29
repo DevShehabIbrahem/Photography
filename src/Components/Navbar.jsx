@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../Assets/Logo.png";
+import logo from "../Assets/logo.svg";
 import { FaSearch } from "react-icons/fa";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,9 +12,6 @@ const Navbar = ({ toggle, setToggle }) => {
       <div className="flex justify-between">
         {/* logo left*/}
         <div className="flex gap-2 items-center">
-          <Link to="/">
-            <img src={logo} alt="logo" className="w-20 h-25" />
-          </Link>
           <div className="flex justify-center items-center border-y border-amber-200">
             <FaSearch className="text-white mr-2" />
             <input

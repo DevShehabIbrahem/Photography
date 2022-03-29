@@ -45,7 +45,7 @@ const JoinNow = () => {
     <>
       <div className="relative flex justify-center items-center w-full min-h-screen ">
         <img src={bg} alt="bg" className="w-full h-screen" />
-        <div className="absolute top-0 left-0 w-full h-screen overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-screen overflow-hidden ">
           <div className="flex justify-center items-center mt-24">
             <div className="flex justify-between items-center max-w-4xl">
               <div className="hidden md:flex w-508 h-420">
