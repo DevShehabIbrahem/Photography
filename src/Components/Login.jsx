@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
-import { userQuery, client } from "../utility";
+import { userQuery, client, Userid } from "../utility";
 
 const Login = ({ setUsername, username, setPassword, password }) => {
   const [userdata, setUserdata] = useState(null);
-  const UserId = JSON.parse(localStorage.getItem("id"));
   const navigate = useNavigate();
-
+  const Id = Userid();
   useEffect(() => {
-    const query = userQuery(UserId);
+    const query = userQuery(Id);
 
     client.fetch(query).then((items) => setUserdata(items[0]));
-  }, [UserId]);
+  }, [Id]);
 
   const matchData = (e) => {
     e.preventDefault();
