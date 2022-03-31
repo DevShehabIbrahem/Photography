@@ -1,3 +1,3 @@
-export { formInfo } from "../utility/userInfo";
-export { formUser } from "../utility/data";
+export { RegistrationStorage } from "../utility/userInfo";
+export { userQuery } from "../utility/data";
 export { client } from "../utility/client";

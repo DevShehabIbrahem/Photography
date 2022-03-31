@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import GoogleLogin from "react-google-login";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { Register, Login, Form } from "../Components";
 import { camera2, bg } from "../Assets";
-import { formUser, client, formInfo } from "../utility";
+import { userQuery, client, RegistrationStorage } from "../utility";
 
 const JoinNow = () => {
   const [loginform, setLoginform] = useState(false);
@@ -13,31 +13,32 @@ const JoinNow = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const userForm = formInfo();
+  const userForm = RegistrationStorage();
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-  const [form, setForm] = useState([]);
-
+  const [userdata, setUserdata] = useState(null);
+  console.log(userdata);
+  const [form, setForm] = useState(null);
   const responseGoogle = (response) => {
     const { name, googleId, imageUrl } = response.profileObj;
-    localStorage.setItem("user", JSON.stringify(response.profileObj));
+    localStorage.setItem("form", JSON.stringify(response.profileObj));
     //Data From The Google
-
     const doc = {
       _id: googleId,
-      _type: "user",
-      userName: name,
+      _type: "registration",
+      username: name,
       image: imageUrl,
     };
     client.createIfNotExists(doc).then(() => {
-      console.log("done");
+      navigate(`/user-profile/:${googleId}`);
     });
   };
+  console.log(form);
 
   //Data From The form
 
   useEffect(() => {
-    const query = formUser(userForm?._id);
+    const query = userQuery(userForm?.googleId);
     client.fetch(query).then((data) => setForm(data[0]));
   }, []);
 
@@ -64,6 +65,7 @@ const JoinNow = () => {
                       setUsername={setUsername}
                       setPassword={setPassword}
                       password={password}
+                      setUserdata={setUserdata}
                     />
                   </>
                 ) : (

@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "../Assets/logo.svg";
 import { FaSearch } from "react-icons/fa";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
@@ -28,9 +27,6 @@ const Navbar = ({ toggle, setToggle }) => {
         </div>
         {/* right siade*/}
         <div className="hidden md:flex justify-center items-center gap-4">
-          <Link to="login" className="bg-white font-bold py-2 px-4 rounded">
-            Sign in
-          </Link>
           <Link
             to="JoinNow"
             className="bg-black py-2 px-4 text-white font-bold rounded"

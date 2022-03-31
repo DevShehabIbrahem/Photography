@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +12,7 @@ const Register = ({ setUsername, username, setPassword, password }) => {
 
   const userInfo = (e) => {
     e.preventDefault();
+
     if (username && password && email) {
       const doc = {
         _id: uuidv4(), //Generate the new id
@@ -20,9 +22,9 @@ const Register = ({ setUsername, username, setPassword, password }) => {
         username,
         age,
       };
-      client.createIfNotExists(doc).then(() => {
-        localStorage.setItem("form", JSON.stringify(doc));
-        navigate("/");
+      client.createIfNotExists(doc).then((data) => {
+        localStorage.setItem("id", JSON.stringify(data?._id));
+        navigate(`/user-profile/${data?._id}`);
       });
     }
   };

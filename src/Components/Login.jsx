@@ -1,22 +1,29 @@
-import { formInfo } from "../utility/userInfo.js";
+import { useEffect, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
+import { userQuery, client } from "../utility";
+
 const Login = ({ setUsername, username, setPassword, password }) => {
-  console.log(username);
-  const UserInfo = formInfo();
+  const [userdata, setUserdata] = useState(null);
+  const UserId = JSON.parse(localStorage.getItem("id"));
   const navigate = useNavigate();
-  console.log("lcoal", UserInfo?.username);
-  console.log("lcoal", UserInfo?.password);
-  console.log(username);
-  console.log(password);
+
+  useEffect(() => {
+    const query = userQuery(UserId);
+
+    client.fetch(query).then((items) => setUserdata(items[0]));
+  }, [UserId]);
 
   const matchData = (e) => {
     e.preventDefault();
-    if (username === UserInfo.username && password === UserInfo?.password) {
-      navigate("/");
+
+    if (username === userdata?.username && password === userdata?.password) {
+      navigate(`/user-profile/${userdata?._id}`);
     } else {
       alert("you Have An Error in this Form");
     }
   };
+
   return (
     <div>
       <h1 className="font-bold mb-5 flex justify-center items center text-3xl">
