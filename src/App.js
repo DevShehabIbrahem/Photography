@@ -1,8 +1,7 @@
 import Home from "./Container/Home";
 import { Routes, Route } from "react-router-dom";
-import Userprofile from "./Components/Userprofile";
-import JoinNow from "./Components/JoinNow";
-import { Login } from "./Components";
+
+import { Login, JoinNow, Userprofile } from "./Components";
 const App = () => {
   return (
     <div>

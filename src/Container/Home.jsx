@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { fetchImages } from "../Api";
-import { Feed, Header, Search } from "../Components";
+import { Header, Search, Feed } from "../Components";
 
 const Home = () => {
   const [respons, setRespons] = useState([]);

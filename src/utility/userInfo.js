@@ -5,8 +5,3 @@ export const RegistrationStorage = () => {
       : localStorage.clear();
   return Forminfo;
 };
-
-export const Userid = () => {
-  const Id = JSON.parse(localStorage.getItem("id"));
-  return Id;
-};

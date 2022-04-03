@@ -93,6 +93,7 @@ export const pinDetailMorePinQuery = (pin) => {
 };
 
 export const feedQuery = `*[_type == "create"] | order(_createAt desc){
+  about,
   image{
     asset->{
       url
@@ -101,7 +102,7 @@ export const feedQuery = `*[_type == "create"] | order(_createAt desc){
   _id,
   postedBy->{
     _id,
-    userName,
+    username,
     image
   },
 }`;
