@@ -8,3 +8,4 @@ export { default as Userfeed } from "../Components/User/Userfeed";
 export { default as Sidebar } from "../Components/Header/Sidebar";
 export { default as Userprofile } from "../Components/User/Userprofile";
 export { default as JoinNow } from "../Components/Form/JoinNow";
+export { default as Modal } from "../Components/Modal/Modal";

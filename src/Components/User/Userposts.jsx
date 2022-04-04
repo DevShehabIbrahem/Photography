@@ -1,22 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { urlFor, feedQuery, client, RegistrationStorage } from "../../utility";
 import userprofile from "../../Assets/userprofile.png";
+import Modal from "../Modal/Modal";
 
 const Userposts = ({ Id, userData }) => {
+  const [showModal, setShowModal] = useState(false);
   const userinfo = RegistrationStorage();
-  console.log(userinfo?.googleId);
   const [images, setImages] = useState(null);
-  console.log(images);
+  const [ImagesUrl, setmagesUrl] = useState(null);
   useEffect(() => {
     client.fetch(feedQuery).then((items) => setImages(items));
   }, []);
 
+  const ImageUrl = (e) => {
+    setShowModal(!showModal);
+    const Url = e.target.src;
+    setmagesUrl(Url);
+  };
+
   return (
     <>
       {images?.map(({ about, image, _id, postedBy }) => (
-        <div>
+        <div className="relative flex flex-col justify-center ">
           {postedBy?._id === userinfo?.googleId && (
             <>
+              <Modal
+                showModal={showModal}
+                setShowModal={setShowModal}
+                ImagesUrl={ImagesUrl}
+              />
+
               <div className="flex items-center justify-start text-[21px] pb-2">
                 <img
                   src={postedBy.image || userprofile}
@@ -35,7 +48,7 @@ const Userposts = ({ Id, userData }) => {
                 <img
                   src={urlFor(image).width(650).height(600).url()}
                   alt="posts"
-                  key={_id}
+                  onClick={ImageUrl}
                   className="h-full w-full border border-gray-300 p-5 shadow-2xl "
                 />
               </div>

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
-import { userQuery, client, Userid, RegistrationStorage } from "../../utility";
+import { userQuery, client, RegistrationStorage } from "../../utility";
 
 const Login = ({ setUsername, username, setPassword, password }) => {
   const [userdata, setUserdata] = useState(null);
   const navigate = useNavigate();
   const infoUser = RegistrationStorage();
+
   useEffect(() => {
     const query = userQuery(infoUser?.googleId);
 

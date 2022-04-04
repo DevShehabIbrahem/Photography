@@ -59,11 +59,14 @@ const Userprofile = () => {
               >
                 <IoIosNotifications />
               </a>
-              <img
-                src={Userimge?.imageUrl || userprofile}
-                alt="user-profile"
-                className="rounded-[100%] w-full  border border-black"
-              />
+              <Link to="/Userdetails">
+                <img
+                  src={Userimge?.imageUrl || userprofile}
+                  alt="user-profile"
+                  className="rounded-[100%] w-full  border border-black"
+                />
+              </Link>
+
               <div
                 className="flex items-center px-3 justify-center cursor-pointer text-[#333333] md:hidden"
                 onClick={() => setToggle(!toggle)}
