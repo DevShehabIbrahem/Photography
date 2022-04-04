@@ -1,29 +1,45 @@
-import React, { useRef } from "react";
+import React, { useCallback, useRef, useEffect } from "react";
 
 const Modal = ({ showModal, setShowModal, ImagesUrl }) => {
   const ModalRef = useRef();
 
   const closeModal = (e) => {
     if (ModalRef.current === e.target) {
-      setShowModal(false);
+      console.log("done");
+      setShowModal(!showModal);
     }
   };
+
+  const keyPress = useCallback(
+    (e) => {
+      if (e.key === "Escape" && showModal) {
+        setShowModal(false);
+        console.log("I pressed");
+      }
+    },
+    [setShowModal, showModal]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", keyPress);
+    return () => document.removeEventListener("keydown", keyPress);
+  }, [keyPress]);
 
   return (
     <>
       {showModal && (
         <div
-          className="flex items-center justify-center h-screen w-full fixed z-10"
+          className="flex items-center justify-center h-screen w-full fixed z-10 px-8 "
+          onClick={closeModal}
           style={{
-            background: "rgb(232, 232, 232,0.6)",
+            transform: "translate(-50%,-50%)",
             top: "50%",
             left: "50%",
-            transform: "translate(-50%,-50%)",
+            background: "rgba(250,250,250,0.2)",
           }}
           ref={ModalRef}
-          onClick={closeModal}
         >
-          <div className="w-[800px] h-[500px] bg-white flex justify-between  rounded-md shadow-2xl border-r-8 border-black">
+          <div className="w-full h-[500px]  bg-white flex justify-between  rounded-md shadow-2xl border-r-8 animate-slide-in border-black">
             <img
               src={ImagesUrl}
               alt="user"

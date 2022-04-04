@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { urlFor, feedQuery, client, RegistrationStorage } from "../../utility";
 import userprofile from "../../Assets/userprofile.png";
 import Modal from "../Modal/Modal";
 
-const Userposts = ({ Id, userData }) => {
+const Userposts = () => {
   const [showModal, setShowModal] = useState(false);
   const userinfo = RegistrationStorage();
   const [images, setImages] = useState(null);
