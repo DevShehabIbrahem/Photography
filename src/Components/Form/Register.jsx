@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 
 const Register = ({ setUsername, username, setPassword, password }) => {
   const { register, errors, handleSubmit, reset } = useForm();
-  console.log("🚀 ~ file: Register.jsx ~ line 10 ~ Register ~ errors", errors);
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
   const navigate = useNavigate();

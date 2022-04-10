@@ -9,9 +9,16 @@ const Login = ({ setUsername, username, setPassword, password }) => {
   const infoUser = RegistrationStorage();
 
   useEffect(() => {
+    let cleanUp = true;
+
     const query = userQuery(infoUser?.googleId);
 
-    client.fetch(query).then((items) => setUserdata(items[0]));
+    client.fetch(query).then((items) => {
+      if (cleanUp) setUserdata(items[0]);
+    });
+    return () => {
+      cleanUp = false;
+    };
   }, []);
 
   const matchData = (e) => {

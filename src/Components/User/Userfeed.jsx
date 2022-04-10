@@ -3,7 +3,13 @@ import { Link } from "react-router-dom";
 import { IoMdRocket } from "react-icons/io";
 
 import { AiFillCheckCircle, AiOutlineCamera } from "react-icons/ai";
-import { RegistrationStorage, userQuery, client } from "../../utility";
+import {
+  RegistrationStorage,
+  userQuery,
+  client,
+  feedQuery,
+  feedPosts,
+} from "../../utility";
 
 import { userprofile } from "../../Assets";
 import { BsCircle } from "react-icons/bs";
@@ -13,17 +19,40 @@ const Userfeed = () => {
   const [data, setData] = useState(null);
   const [about, setAbout] = useState("");
   const [imgasset, setImgasset] = useState(null);
-  const [send, setSend] = useState(false);
+  const [allimages, setAllimages] = useState(null);
   const userData = RegistrationStorage();
+
+  //Your Fist Post
+
+  const Myfirstpost = allimages?.filter(
+    (items) => items?.postedBy?._id === data?._id
+  );
+
   useEffect(() => {
+    let cleanUp = true;
+    //User Data
     const query = userQuery(userData.googleId);
     client.fetch(query).then((item) => {
-      setData(item[0]);
+      if (cleanUp) setData(item[0]);
     });
+    return () => {
+      cleanUp = false;
+    };
   }, [userData.googleId]);
 
+  useEffect(() => {
+    let cleanUp = true;
+
+    //Images Data
+    client.fetch(feedPosts).then((item) => {
+      if (cleanUp) setAllimages(item);
+    });
+    return () => {
+      cleanUp = false;
+    };
+  }, []);
+
   const dragImage = (e) => {
-    setSend(true);
     const { name, type } = e.target.files[0];
     if (
       type === "image/png" ||
@@ -44,7 +73,6 @@ const Userfeed = () => {
   };
 
   const saveImage = () => {
-    setSend(false);
     if ((about, imgasset?._id)) {
       const doc = {
         _type: "create",
@@ -68,6 +96,7 @@ const Userfeed = () => {
       });
     }
   };
+
   return (
     <div className="px-5 md:max-w-6xl mx-auto mt-5">
       <div className="flex justify-between ">
@@ -121,19 +150,19 @@ const Userfeed = () => {
               />
             </div>
           </div>
-          <div className="flex flex-col justify-center items-center mt-10 ">
+          <div className="flex flex-col justify-center items-center mt-10 mx-5 ">
             <Userposts Id={userData.googleId} userData={userData?.googleId} />
           </div>
         </div>
         <div className="hidden md:flex flex-col flex-1 border border-black-600 h-420 p-5 shadow-lg">
           <div className="space-y-6 ">
-            <div className="flex items-center space-x-2 justify-start ">
+            <div className="flex items-center space-x-2 justify-start">
               <AiFillCheckCircle />
               <p>Sign Up</p>
             </div>
             <div className="flex items-center space-x-2">
-              <AiFillCheckCircle />
-              <p>Sign Up</p>
+              {Myfirstpost?.length ? <AiFillCheckCircle /> : <BsCircle />}
+              <p> Upload your first post</p>
             </div>
             <div className="flex items-center space-x-2">
               <AiFillCheckCircle />

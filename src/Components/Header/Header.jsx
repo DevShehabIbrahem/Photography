@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { fetchImages } from "../../Api";
 import Vid from "../../Assets/Vid.mp4";
 
 import Navbar from "./Navbar";
@@ -10,7 +11,6 @@ const Header = () => {
   const changeToggle = () => {
     setToggle(false);
   };
-
   return (
     <>
       <div className="relative w-full h-full">

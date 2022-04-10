@@ -7,7 +7,14 @@ const Home = () => {
   const [respons, setRespons] = useState([]);
 
   useEffect(() => {
-    fetchImages().then(({ data }) => setRespons(data));
+    let cleanUp = true;
+
+    fetchImages().then(({ data }) => {
+      if (cleanUp) setRespons(data);
+    });
+    return () => {
+      cleanUp = false;
+    };
   }, []);
 
   return (

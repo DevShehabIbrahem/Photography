@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-
+import { fetchImages } from "../../Api";
 const Navbar = ({ toggle, setToggle }) => {
-  const navigate = useNavigate();
+  const [term, setTerm] = useState("");
+  const [incloud, setIncloud] = useState(false);
+  const [images, setImages] = useState([]);
+  //fetch images To ui
+  useEffect(() => {
+    fetchImages(term).then((items) => {
+      setImages(items);
+    });
+  }, [term]);
 
+  //Add the reuslt of images inside the local
+  const setData = () => {
+    if (!incloud) {
+      localStorage.setItem("images", JSON.stringify(images));
+      window.location.reload();
+    } else {
+    }
+  };
+
+  const navigate = useNavigate();
   return (
     <div>
       <div className="flex justify-between">
@@ -17,12 +35,24 @@ const Navbar = ({ toggle, setToggle }) => {
               type="text"
               className="outline-none bg-transparent relative py-1 text-white font-extrabold"
               placeholder="Search YourPic..."
-              onFocus={() => navigate("/search")}
+              onFocus={() => {
+                navigate("/search");
+                localStorage.removeItem("images");
+              }}
+              onChange={(e) => setTerm(e.target.value)}
+              value={term}
             />
           </div>
 
           <div className="hidden md:flex text-white font-extrabold ml-2 ">
-            <Link to="Explore">Explore</Link>
+            <button
+              onClick={(e) => {
+                setIncloud(true);
+                setData();
+              }}
+            >
+              Explore
+            </button>
           </div>
         </div>
         {/* right siade*/}

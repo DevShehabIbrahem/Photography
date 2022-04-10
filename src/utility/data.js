@@ -1,3 +1,15 @@
+export const category = [
+  { name: "backgrounds" },
+  { name: "fashion" },
+  { name: "nature" },
+  { name: "health" },
+  { name: "people" },
+  { name: "places" },
+  { name: "animals" },
+  { name: "computer" },
+  { name: "sports" },
+];
+
 export const userQuery = (userId) => {
   const query = `*[_type =="registration" &&_id =='${userId}']`;
   return query;
@@ -91,6 +103,21 @@ export const pinDetailMorePinQuery = (pin) => {
   }`;
   return query;
 };
+
+export const feedPosts = `*[_type == "create"] {
+  about,
+  image{
+    asset->{
+      url
+    }
+  },
+  _id,
+  postedBy->{
+    _id,
+    username,
+    image
+  },
+}`;
 
 export const feedQuery = `*[_type == "create"] | order(_createAt desc){
   about,

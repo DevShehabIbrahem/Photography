@@ -1,6 +1,5 @@
 import React from "react";
 import Masonry from "react-masonry-css";
-import Boximg from "./Boximg";
 
 const brakepointobj = {
   default: 4,
@@ -10,7 +9,7 @@ const brakepointobj = {
   1000: 2,
   500: 1,
 };
-const MasonryLayout = ({ respons, one }) => {
+const MasonryLayout = ({ respons }) => {
   return (
     <div>
       <Masonry
@@ -18,7 +17,9 @@ const MasonryLayout = ({ respons, one }) => {
         breakpointCols={brakepointobj}
       >
         {respons?.map((imge) => (
-          <Boximg key={imge.id} imge={imge} className="w-max" />
+          <div key={imge?.id} className="p-[2px]">
+            <img src={imge.largeImageURL} alt="homeImage" />
+          </div>
         ))}
       </Masonry>
     </div>

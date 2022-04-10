@@ -1,16 +1,25 @@
 import Home from "./Container/Home";
 import { Routes, Route } from "react-router-dom";
 
-import { Login, JoinNow, Userprofile } from "./Components";
+import { Login, JoinNow, Userprofile, Search } from "./Components";
 import Userdetails from "./Components/User/Userdetails";
+import Postscreated from "./Components/ImagesComponent/Postscreated";
+import Lastactivty from "./Components/ImagesComponent/Lastactivty";
+import Postsviews from "./Components/ImagesComponent/Postsviews";
 const App = () => {
   return (
     <div>
       <Routes>
         <Route path="login" element={<Login />} />
-        <Route path="Userdetails" element={<Userdetails />} />
+        <Route path="userdetails" element={<Userdetails />}>
+          <Route path="posts" element={<Postscreated />} />
+          <Route path="lastactivty" element={<Lastactivty />} />
+          <Route path="views" element={<Postsviews />} />
+        </Route>
         <Route path="JoinNow" element={<JoinNow />} />
-        <Route path="/*" element={<Home />} />
+        <Route path="/" element={<Home />}>
+          <Route path="/*" element={<Search />} />
+        </Route>
         <Route path="/user-profile/:userId" element={<Userprofile />} />
       </Routes>
     </div>

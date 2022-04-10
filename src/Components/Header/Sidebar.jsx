@@ -46,6 +46,14 @@ const Sidebar = ({ changeToggle }) => {
           <ImStatsBars2 fontSize={30} />
           Stats
         </Link>
+        <div className="flex justify-center items-center gap-4">
+          <Link
+            to="JoinNow"
+            className="bg-black py-2 px-4 text-white font-bold rounded"
+          >
+            Join now
+          </Link>
+        </div>
       </div>
     </>
   );

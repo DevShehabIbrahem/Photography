@@ -3,3 +3,4 @@ export { userQuery } from "../utility/data";
 export { feedQuery } from "../utility/data";
 export { client } from "../utility/client";
 export { urlFor } from "../utility/client";
+export { feedPosts } from "../utility/data";

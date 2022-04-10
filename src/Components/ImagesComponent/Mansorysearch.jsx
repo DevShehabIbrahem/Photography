@@ -1,6 +1,5 @@
 import React from "react";
 import Masonry from "react-masonry-css";
-import Boximg from "../ImagesComponent/Boximg";
 
 const brakepointobj = {
   default: 4,
@@ -10,19 +9,21 @@ const brakepointobj = {
   1000: 2,
   500: 1,
 };
-const MasonryLayout = ({ respons, one }) => {
+const Masonrysearch = ({ items }) => {
   return (
-    <div>
+    <div className="mx-2">
       <Masonry
         className="flex animate-slide-fwd"
         breakpointCols={brakepointobj}
       >
-        {respons?.map((imge) => (
-          <Boximg key={imge.id} imge={imge} className="w-max" />
+        {items?.map((item) => (
+          <div key={item?.id} className="p-[2px]">
+            <img src={item?.largeImageURL} alt="hits" />
+          </div>
         ))}
       </Masonry>
     </div>
   );
 };
 
-export default MasonryLayout;
+export default Masonrysearch;

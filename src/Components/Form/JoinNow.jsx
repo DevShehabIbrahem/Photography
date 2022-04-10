@@ -16,16 +16,19 @@ const JoinNow = () => {
 
   const responseGoogle = (response) => {
     const { googleId, imageUrl } = response.profileObj;
+
     localStorage.setItem("form", JSON.stringify(response.profileObj));
-    const doc = {
-      _id: googleId,
-      _type: "registration",
-      username: response?.profileObj?.name,
-      image: imageUrl,
-    };
-    client.createIfNotExists(doc).then(() => {
-      navigate(`/user-profile/:${googleId}`);
-    });
+    if (googleId) {
+      const doc = {
+        _id: googleId,
+        _type: "registration",
+        username: response?.profileObj?.name,
+        image: imageUrl,
+      };
+      client.createIfNotExists(doc).then(() => {
+        navigate(`/user-profile/:${googleId}`);
+      });
+    }
   };
 
   return (
