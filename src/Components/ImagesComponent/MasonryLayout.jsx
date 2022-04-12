@@ -9,16 +9,16 @@ const brakepointobj = {
   1000: 2,
   500: 1,
 };
-const MasonryLayout = ({ respons }) => {
+const MasonryLayout = ({ images, Srcimage }) => {
   return (
     <div>
       <Masonry
         className="flex animate-slide-fwd"
         breakpointCols={brakepointobj}
       >
-        {respons?.map((imge) => (
+        {images?.hits?.map((imge) => (
           <div key={imge?.id} className="p-[2px]">
-            <img src={imge.largeImageURL} alt="homeImage" />
+            <img src={imge.largeImageURL} alt="homeImage" onClick={Srcimage} />
           </div>
         ))}
       </Masonry>

@@ -1,12 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-body {
-  font-family: "lato", sans-serif;
-
-height: 200000px;
+@layer base {
+  html {
+    font-family: Proxima Nova, system-ui, sans-serif;
+    
+  
+  
+  }
+  
 }
+body{
+  padding:0;
+}
+
+
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }

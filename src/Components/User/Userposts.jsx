@@ -5,10 +5,10 @@ import Modal from "../Modal/Modal";
 
 const Userposts = () => {
   const [showModal, setShowModal] = useState(false);
-  const userinfo = RegistrationStorage();
   const [images, setImages] = useState(null);
-
   const [ImagesUrl, setmagesUrl] = useState(null);
+
+  const userinfo = RegistrationStorage();
 
   useEffect(() => {
     let cleanUp = true;
@@ -20,7 +20,7 @@ const Userposts = () => {
     };
   }, []);
 
-  // Open and src Url PupUp Modal
+  // Open and send src Url To Modal
   const Srcimage = (e) => {
     const Data = e.target.src;
     setmagesUrl(Data);

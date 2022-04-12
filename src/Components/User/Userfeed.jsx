@@ -7,7 +7,6 @@ import {
   RegistrationStorage,
   userQuery,
   client,
-  feedQuery,
   feedPosts,
 } from "../../utility";
 
@@ -16,25 +15,26 @@ import { BsCircle } from "react-icons/bs";
 import Userposts from "./Userposts";
 
 const Userfeed = () => {
-  const [data, setData] = useState(null);
+  const [userinfo, setUserinfo] = useState(null);
   const [about, setAbout] = useState("");
-  const [imgasset, setImgasset] = useState(null);
+  const [imageUpload, setImageUpload] = useState(null);
   const [allimages, setAllimages] = useState(null);
   const userData = RegistrationStorage();
 
-  //Your Fist Post
-
+  //user First Post
   const Myfirstpost = allimages?.filter(
-    (items) => items?.postedBy?._id === data?._id
+    (items) => items?.postedBy?._id === userinfo?._id
   );
 
   useEffect(() => {
     let cleanUp = true;
-    //User Data
+    //User info
     const query = userQuery(userData.googleId);
+
     client.fetch(query).then((item) => {
-      if (cleanUp) setData(item[0]);
+      if (cleanUp) setUserinfo(item[0]);
     });
+
     return () => {
       cleanUp = false;
     };
@@ -52,6 +52,7 @@ const Userfeed = () => {
     };
   }, []);
 
+  //Upload/check The images and Send to DataBase
   const dragImage = (e) => {
     const { name, type } = e.target.files[0];
     if (
@@ -67,13 +68,14 @@ const Userfeed = () => {
           filename: name,
         })
         .then((data) => {
-          setImgasset(data);
+          setImageUpload(data);
         });
     }
   };
 
+  //after clicked posts button save images in database
   const saveImage = () => {
-    if ((about, imgasset?._id)) {
+    if ((about, imageUpload?._id)) {
       const doc = {
         _type: "create",
         about,
@@ -81,7 +83,7 @@ const Userfeed = () => {
           _type: "image",
           asset: {
             _type: "reference",
-            _ref: imgasset?._id,
+            _ref: imageUpload?._id,
           },
         },
         userId: userData?.googleId,
@@ -92,7 +94,7 @@ const Userfeed = () => {
       };
       client.create(doc).then((data) => {
         window.location.reload();
-        setImgasset(data);
+        setImageUpload(data);
       });
     }
   };
@@ -100,8 +102,9 @@ const Userfeed = () => {
   return (
     <div className="px-5 md:max-w-6xl mx-auto mt-5">
       <div className="flex justify-between ">
+        {/*Left Section*/}
         <div className="hidden md:flex flex-col flex-1 items-center justify-start text-[#333333] shadow-lg border border-black-600 py-2">
-          <Link to="##">
+          <Link to="/Userdetails">
             <img
               src={userData?.imageUrl || userprofile}
               alt="user-profile"
@@ -110,13 +113,15 @@ const Userfeed = () => {
           </Link>
 
           <Link to="##" className="my-2 font-extrabold ">
-            {!userData ? data?.username : userData?.name}
+            {!userData ? userinfo?.username : userData?.name}
           </Link>
 
           <a href="##" className="mt-2">
             <IoMdRocket fontSize={30} />
           </a>
         </div>
+
+        {/*middle Section*/}
         <div className="w-full md:w-[57.666667%] border border-black-400 h-[226px] flex flex-col flex-2 mx-5 shadow-lg">
           <div className="w-[95%] mx-auto border-b border-black-600  ">
             <input
@@ -154,19 +159,28 @@ const Userfeed = () => {
             <Userposts Id={userData.googleId} userData={userData?.googleId} />
           </div>
         </div>
+
+        {/*Right Section*/}
         <div className="hidden md:flex flex-col flex-1 border border-black-600 h-420 p-5 shadow-lg">
           <div className="space-y-6 ">
             <div className="flex items-center space-x-2 justify-start">
-              <AiFillCheckCircle />
-              <p>Sign Up</p>
+              <AiFillCheckCircle className="text-gray-800" fontSize={25} />
+              <p className="text-gray-500 font-semibold">Sign Up</p>
             </div>
-            <div className="flex items-center space-x-2">
-              {Myfirstpost?.length ? <AiFillCheckCircle /> : <BsCircle />}
-              <p> Upload your first post</p>
+            <div className="flex items-center space-x-2 ">
+              {Myfirstpost?.length ? (
+                <AiFillCheckCircle fontSize={25} className="text-gray-800" />
+              ) : (
+                <BsCircle />
+              )}
+              <p className="text-gray-500 font-semibold">
+                Upload your first post
+              </p>
             </div>
+
             <div className="flex items-center space-x-2">
-              <AiFillCheckCircle />
-              <p>Sign Up</p>
+              <AiFillCheckCircle className="text-gray-800" fontSize={25} />
+              <p className="text-gray-500 font-semibold"> Upload first Cover</p>
             </div>
           </div>
         </div>

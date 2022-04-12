@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import GoogleLogin from "react-google-login";
-import { useForm } from "react-hook-form";
-import { FcGoogle } from "react-icons/fc";
-import { Register, Login, Form } from "../../Components";
-import { camera2, bg } from "../../Assets";
+
+import { Register, Login } from "../../Components";
 import { client } from "../../utility";
 
 const JoinNow = () => {
   const [registerform, setRegisterform] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
   const responseGoogle = (response) => {
@@ -33,53 +29,52 @@ const JoinNow = () => {
 
   return (
     <>
-      <div className="relative flex justify-center items-center w-full min-h-screen ">
-        <img src={bg} alt="bg" className="w-full h-screen" />
-        <div className="absolute top-0 left-0 w-full h-screen overflow-hidden ">
-          <div className="flex justify-center items-center mt-24">
-            <div className="flex justify-between items-center max-w-4xl">
-              <div className="hidden md:flex w-508 h-420">
-                <img src={camera2} alt="pic" className="h-full object-cover" />
-              </div>
+      <div className="flex justify-center">
+        <div className="hidden md:flex  font-extrabold h-screen w-full relative overflow-hidden">
+          <div
+            className="absolute top-0 left-0 h-screen w-full z-10"
+            style={{ background: "rgba(0,0,0,0.6)" }}
+          >
+            <p className="text-white  text-[40px] overflow-hidden absolute top-0 left-11 h-full flex items-center w-2/3 ">
+              Connect with your favorite photographers, models and brands
+            </p>
+          </div>
 
-              <div className="w-350 md:w-508 h-420 bg-white">
-                <Form setRegisterform={setRegisterform} />
-                {registerform ? (
-                  <>
-                    <Register
-                      username={username}
-                      setUsername={setUsername}
-                      setPassword={setPassword}
-                      password={password}
-                    />
-                  </>
-                ) : (
-                  <Login
-                    username={username}
-                    setUsername={setUsername}
-                    setPassword={setPassword}
-                    password={password}
-                  />
-                )}
-              </div>
+          <img
+            src="https://source.unsplash.com/1600x900/?space,nature,photography,art"
+            alt="Cover-user"
+            className="w-full 2xl:h-510 shadow-lg object-cover"
+          />
+        </div>
 
-              <GoogleLogin
-                clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}
-                render={(renderprop) => (
-                  <button
-                    type="button"
-                    className="bg-white p-2 rounded-[100%] cursor-pointer output-none duration-500 hover:translate-x-3"
-                    onClick={renderprop.onClick}
-                    disabled={renderprop.disabled}
-                  >
-                    <FcGoogle fontSize={30} />
-                  </button>
-                )}
-                onSuccess={responseGoogle} //User Data responseGoogle
-                onFailure={responseGoogle}
-                cookiePolicy="single_host_origin"
-              />
+        <div className="w-full bg-white ">
+          <div className=" mx-10 md:mx-28 flex flex-col justify-center space-y-4 md:space-y-6">
+            <div className="my-2">
+              <h1 className=" font-extrabold text-2xl text-[#333333]">
+                Sign in to YouPic
+              </h1>
             </div>
+            
+            {registerform ? (
+              <>
+                <Register
+                  username={username}
+                  setUsername={setUsername}
+                  setPassword={setPassword}
+                  password={password}
+                  setRegisterform={setRegisterform}
+                />
+              </>
+            ) : (
+              <Login
+                username={username}
+                setUsername={setUsername}
+                setPassword={setPassword}
+                password={password}
+                setRegisterform={setRegisterform}
+                responseGoogle={responseGoogle}
+              />
+            )}
           </div>
         </div>
       </div>

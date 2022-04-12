@@ -1,3 +1,6 @@
+import { client } from "./client";
+import { feedQuery } from "./data";
+
 export const RegistrationStorage = () => {
   const Forminfo =
     localStorage.getItem("form") !== "undefined"

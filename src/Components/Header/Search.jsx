@@ -1,18 +1,30 @@
-import Masonrysearch from "../ImagesComponent/Mansorysearch";
+import { useState } from "react";
 import MasonryLayout from "../ImagesComponent/MasonryLayout";
+import Modal from "../Modal/Modal";
 
 const Search = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [ImagesUrl, setmagesUrl] = useState(null);
+
+  const Srcimage = (e) => {
+    const data = e.target.src;
+    setShowModal(!showModal);
+    setmagesUrl(data);
+  };
+
   //Images result From local
-  const images = JSON.parse(localStorage.getItem("images"));
-  const imagesHome = JSON.parse(localStorage.getItem("imagesHome"));
+  const image = JSON.parse(localStorage.getItem("images"));
 
   return (
     <>
-      {images?.hits ? (
-        <Masonrysearch items={images?.hits} />
-      ) : (
+      {image && (
         <>
-          <MasonryLayout respons={imagesHome} />
+          <Modal
+            ImagesUrl={ImagesUrl}
+            showModal={showModal}
+            setShowModal={setShowModal}
+          />
+          <MasonryLayout images={image} Srcimage={Srcimage} />
         </>
       )}
     </>

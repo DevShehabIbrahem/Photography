@@ -1,36 +1,56 @@
 import React, { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
 import { fetchImages } from "../../Api";
+import Modal from "../Modal/Modal";
 import Category from "./Category";
-import Images from "./Images";
-import MasonryCategory from "./MasonryCategory";
+import MasonryLayout from "./MasonryLayout";
 
 const Feed = () => {
-  const [respons, setRespons] = useState(null);
-  const [data, setData] = useState([]);
-  const [imageHome, setImageHome] = useState(false);
+  const [defaultImages, setDefaultImages] = useState(null);
+  const [categoryimages, setCategoryimages] = useState(null);
+  const [categoriesName, setCategoriesName] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [ImagesUrl, setmagesUrl] = useState(null);
 
   useEffect(() => {
+    //default Homeimages
+    let cleanUp = true;
     fetchImages("images").then((images) => {
-      localStorage.setItem("imagesHome", JSON.stringify(respons));
-      setRespons(images?.hits);
+      if (cleanUp) setDefaultImages(images);
     });
-  }, [respons]);
+    return () => {
+      cleanUp = false;
+    };
+  }, []);
 
-  const categoriesUi = (categoriesData) => {
-    setData(categoriesData);
+  //fetch Categoryimages from category
+  const categoriesUi = (categoriesData, categoriesName) => {
+    setCategoriesName(categoriesName);
+    setCategoryimages(categoriesData);
+  };
+
+  // Open and send src Url To Modal
+  const Srcimage = (e) => {
+    const Data = e.target.src;
+    setmagesUrl(Data);
+    setShowModal(!showModal);
   };
 
   return (
-    <div>
-      <Category categoriesUi={categoriesUi} setImageHome={setImageHome} />
+    <div className="h-screen">
+      <Category categoriesUi={categoriesUi} />
 
-      {imageHome ? (
+      {categoriesName !== "Home" ? (
         <>
-          <MasonryCategory items={data} />
+          {/* PupUp Modal*/}
+          <Modal
+            showModal={showModal}
+            setShowModal={setShowModal}
+            ImagesUrl={ImagesUrl}
+          />
+          <MasonryLayout images={categoryimages} Srcimage={Srcimage} />
         </>
       ) : (
-        <Images respons={respons} />
+        <MasonryLayout images={defaultImages} Srcimage={Srcimage} />
       )}
     </div>
   );

@@ -1,6 +1,5 @@
 export { default as Register } from "../Components/Form/Register";
 export { default as Login } from "../Components/Form/Login";
-export { default as Form } from "./Form/Form";
 export { default as Feed } from "../Components/ImagesComponent/Feed";
 export { default as Header } from "./Header/Header";
 export { default as Search } from "../Components/Header/Search";

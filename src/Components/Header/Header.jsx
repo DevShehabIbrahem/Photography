@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { fetchImages } from "../../Api";
+import React, { useState } from "react";
 import Vid from "../../Assets/Vid.mp4";
 
 import Navbar from "./Navbar";
@@ -8,9 +7,6 @@ import Sidebar from "./Sidebar";
 const Header = () => {
   const [toggle, setToggle] = useState(false);
 
-  const changeToggle = () => {
-    setToggle(false);
-  };
   return (
     <>
       <div className="relative w-full h-full">
@@ -40,10 +36,10 @@ const Header = () => {
           </div>
         </div>
       </div>
-
+      {/*Sidebar*/}
       {toggle && (
         <div className="absolute top-0 left-0 bottom-0 w-190 z-10 text-black bg-white h-screen animate-slide-in  md:hidden">
-          <Sidebar changeToggle={changeToggle} />
+          <Sidebar setToggle={setToggle} toggle={toggle} />
         </div>
       )}
 

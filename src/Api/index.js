@@ -4,7 +4,7 @@ const URL = "https://pixabay.com/api/";
 
 export const fetchImages = async (term, categories) => {
   const prosses = await axios.get(
-    `${URL}/?key=${API_KEY}&q=${term}&image_type=photo&category=${categories}&per_page=30&safesearch=true`
+    `${URL}/?key=${API_KEY}&q=${term}&image_type=photo&category=${categories}&per_page=40&safesearch=true`
   );
   return prosses.data;
 };

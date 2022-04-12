@@ -2,29 +2,33 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { fetchImages } from "../../Api";
 import { category } from "../../utility/data";
+import { isActiveStyle, isNotActiveStyle } from "../../utility/style";
 
-const Category = ({ categoriesUi, setImageHome }) => {
-  const [categories, setCategories] = useState("");
+const Category = ({ categoriesUi }) => {
+  const [categoriesName, setCategoriesName] = useState("");
   const [categoriesData, setCategoriesData] = useState(null);
 
-  const isActiveStyle =
-    "flex items-center px-5 my-2 gap-3 font-extrabold border-r-2 border-black transition-all duration-200 ease-in-out capitalize";
-
-  const isNotActiveStyle =
-    "flex items-center px-5 my-2 gap-3 text-gray-800 font-bold hover:text-black transition-all duration-200 ease-in-out capitalize";
-
+  //Fetch category data
   useEffect(() => {
-    fetchImages(categories).then((item) => setCategoriesData(item));
-  }, [categories]);
+    let cleanUp = true;
+    fetchImages(categoriesName).then((item) => {
+      if (cleanUp) setCategoriesData(item);
+    });
+    return () => {
+      cleanUp = false;
+    };
+  }, [categoriesName]);
+
+  //Send Data To Feed Component
   useEffect(() => {
-    categoriesUi(categoriesData);
-  }, [categoriesData, categoriesUi]);
+    categoriesUi(categoriesData, categoriesName);
+  }, [categoriesData, categoriesUi, categoriesName]);
 
   return (
-    <div className="flex shadow-2xl border-b border-gray-500 p-5 ">
+    <div className="flex shadow-2xl border-b border-gray-500 p-5">
       <NavLink
-        onClick={() => {
-          setImageHome(false);
+        onClick={(e) => {
+          setCategoriesName(e.target.textContent);
         }}
         to="/"
         className={({ isActive }) =>
@@ -33,12 +37,12 @@ const Category = ({ categoriesUi, setImageHome }) => {
       >
         Home
       </NavLink>
+
       {category?.map((category) => (
         <NavLink
           key={category.name}
           onClick={(e) => {
-            setCategories(e.target.textContent);
-            setImageHome(true);
+            setCategoriesName(e.target.textContent);
           }}
           to={`/category/${category.name}`}
           className={({ isActive }) =>

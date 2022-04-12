@@ -1,14 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import { AiFillSignal, AiOutlineMenu } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
 import { GrMail } from "react-icons/gr";
 import { IoIosNotifications } from "react-icons/io";
 import { BsArrowUpShort, BsCircleFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
 import { logo, userprofile } from "../../Assets";
 import Sidebar from "../Header/Sidebar";
 
-const Reusblenav = ({ toggle, changeToggle, Userimge, setToggle }) => {
+const Reusblenav = ({ toggle, Userimge, setToggle }) => {
   return (
     <div className="flex items-center shadow-xl bg-zinc-50 p-5">
       <div className="flex justify-between  w-full items-center max-w-6xl mx-auto">
@@ -16,6 +17,7 @@ const Reusblenav = ({ toggle, changeToggle, Userimge, setToggle }) => {
           <Link to="/">
             <img src={logo} alt="logo" className="w-30 h-10 mr-5" />
           </Link>
+
           <div className="hidden md:flex border border-gray-300 items-center">
             <FaSearch className="text-black ml-2" />
             <input
@@ -25,10 +27,11 @@ const Reusblenav = ({ toggle, changeToggle, Userimge, setToggle }) => {
             />
           </div>
         </div>
+
         <div className="flex items-center w-2/3	justify-around">
           {toggle && (
             <div className="absolute top-0 left-0 bottom-0 w-190 z-10 text-black bg-white h-screen animate-slide-in  shadow-2xl md:hidden">
-              <Sidebar changeToggle={changeToggle} />
+              <Sidebar toggle={toggle} setToggle={setToggle} />
             </div>
           )}
           <div className="flex items-center space-x-6 text-[30px] text-[#333333] ">
@@ -75,12 +78,12 @@ const Reusblenav = ({ toggle, changeToggle, Userimge, setToggle }) => {
               Upload
               <BsArrowUpShort className="text-white  text-[25px] font-bold" />
             </a>
-            <a
-              href="##"
+            <Link
+              to="/gopro"
               className="flex  items-center bg-zinc-100 border border-gray-600 text-gray-600  font-extrabold px-3 p-2 "
             >
               Go Pro
-            </a>
+            </Link>
           </div>
         </div>
       </div>
