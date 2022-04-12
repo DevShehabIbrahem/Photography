@@ -54,7 +54,7 @@ const Userdetails = () => {
           <img
             src="https://source.unsplash.com/1600x900/?space,nature,photography,art"
             alt="Cover-user"
-            className="hidden md:flex w-full h-full shadow-lg object-cover"
+            className="flex w-full h-full shadow-lg object-cover"
           />
           <div className="absolute flex items-center justify-center md:h-[150px] md:items-start top-24 md:top-20 w-full md:text-white overflow-hidden">
             <div className="flex justify-between items-center space-x-3 ml-3 md:w-full">
