@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/Photography/static/css/main.045fbfa5.css",
+    "main.js": "/Photography/static/js/main.5821cf8b.js",
+    "static/media/Vid.mp4": "/Photography/static/media/Vid.50240cda8d2fe8424ff5.mp4",
+    "static/media/bg.jpg": "/Photography/static/media/bg.10b56bbc57d308603375.jpg",
+    "static/media/left1-1.png": "/Photography/static/media/left1-1.948bf356308c5e2edcb5.png",
+    "static/media/Right-2.png": "/Photography/static/media/Right-2.94c3910af2ba03ae6b2c.png",
+    "static/media/camera2.jpg": "/Photography/static/media/camera2.5c06ec3cdc224a941889.jpg",
+    "static/media/Left-3.png": "/Photography/static/media/Left-3.5747a0de3c787d891378.png",
+    "static/media/userprofile.png": "/Photography/static/media/userprofile.49887f1dc67aff86dbec.png",
+    "static/media/noposts.png": "/Photography/static/media/noposts.8f2c9ab824dd713bb6ad.png",
+    "static/media/pro.svg": "/Photography/static/media/pro.952fad3fffdf69b0cca15bad3becb78f.svg",
+    "static/media/logo.svg": "/Photography/static/media/logo.9ede44ecee58f85b4c3c7c79fcfd2a86.svg",
+    "index.html": "/Photography/index.html",
+    "main.045fbfa5.css.map": "/Photography/static/css/main.045fbfa5.css.map",
+    "main.5821cf8b.js.map": "/Photography/static/js/main.5821cf8b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.045fbfa5.css",
+    "static/js/main.5821cf8b.js"
+  ]
+}
