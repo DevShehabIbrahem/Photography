@@ -13,6 +13,7 @@
 - Sign-up Page
 - Browse Page
 - Go Pro Page
+- Modal popUp
 
  ## Technology Used
 - React.JS
